@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AkkaBootcamp/DoThis/bin/Debug
+/AkkaBootcamp/DoThis/obj/Debug
+/AkkaBootcamp/DoThis/packages
+*.suo
