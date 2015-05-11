@@ -9,6 +9,7 @@ namespace WinTail
     /// </summary>
     class ConsoleReaderActor : UntypedActor
     {
+        public const string StartCommand = "start";
         public const string ExitCommand = "exit";
         private IActorRef _consoleWriterActor;
 
@@ -19,22 +20,50 @@ namespace WinTail
 
         protected override void OnReceive(object message)
         {
-            var read = Console.ReadLine();
-            if (!string.IsNullOrEmpty(read) && String.Equals(read, ExitCommand, StringComparison.OrdinalIgnoreCase))
+            if (message.Equals(StartCommand))
             {
-                // shut down the system (acquire handle to system via
-                // this actors context)
-                Context.System.Shutdown();
-                return;
+                DoPrintInstructions();
+            }
+            else if (message is Messages.InputError)
+            {
+                _consoleWriterActor.Tell(message as Messages.InputError);
             }
 
-            // send input to the console writer to process and print
-            _consoleWriterActor.Tell(read);
-
-            // continue reading messages from the console
-            Self.Tell("continue");
-
+            GetAndValidateInput();
         }
 
+        private void DoPrintInstructions()
+        {
+            Console.WriteLine("Write something in to console!");
+            Console.WriteLine("Some entries will pass validation");
+            Console.WriteLine("Type 'exit' to quit");
+        }
+
+        private void GetAndValidateInput()
+        {
+            var message = Console.ReadLine();
+            if(string.IsNullOrEmpty(message))
+                Self.Tell(new Messages.NullInputError("No input received"));
+            else if (String.Equals(message, ExitCommand, StringComparison.Ordinal))
+                Context.System.Shutdown();
+            else
+            {
+                var valid = IsValid(message);
+                if (valid)
+                {
+                    _consoleWriterActor.Tell(new Messages.InputSuccess("Thank you, this is valid entry"));
+                    Self.Tell(new Messages.ContinueProccessing());
+                }
+                else
+                {
+                    Self.Tell(new Messages.ValidationError("Invalid input"));
+                }
+            }
+        }
+
+        private bool IsValid(string message)
+        {
+            return message.Length%2 == 0;
+        }
     }
 }
