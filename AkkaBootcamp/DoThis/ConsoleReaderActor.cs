@@ -11,11 +11,11 @@ namespace WinTail
     {
         public const string StartCommand = "start";
         public const string ExitCommand = "exit";
-        private IActorRef _consoleWriterActor;
+        private IActorRef _validationActor;
 
-        public ConsoleReaderActor(IActorRef consoleWriterActor)
+        public ConsoleReaderActor(IActorRef validationActor)
         {
-            _consoleWriterActor = consoleWriterActor;
+            _validationActor = validationActor;
         }
 
         protected override void OnReceive(object message)
@@ -24,11 +24,7 @@ namespace WinTail
             {
                 DoPrintInstructions();
             }
-            else if (message is Messages.InputError)
-            {
-                _consoleWriterActor.Tell(message as Messages.InputError);
-            }
-
+            
             GetAndValidateInput();
         }
 
@@ -42,23 +38,10 @@ namespace WinTail
         private void GetAndValidateInput()
         {
             var message = Console.ReadLine();
-            if(string.IsNullOrEmpty(message))
-                Self.Tell(new Messages.NullInputError("No input received"));
-            else if (String.Equals(message, ExitCommand, StringComparison.Ordinal))
+            
+            if (!string.IsNullOrEmpty(message) && String.Equals(message, ExitCommand, StringComparison.Ordinal))
                 Context.System.Shutdown();
-            else
-            {
-                var valid = IsValid(message);
-                if (valid)
-                {
-                    _consoleWriterActor.Tell(new Messages.InputSuccess("Thank you, this is valid entry"));
-                    Self.Tell(new Messages.ContinueProccessing());
-                }
-                else
-                {
-                    Self.Tell(new Messages.ValidationError("Invalid input"));
-                }
-            }
+            _validationActor.Tell(message);
         }
 
         private bool IsValid(string message)
