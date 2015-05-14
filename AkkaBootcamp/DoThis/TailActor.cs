@@ -52,20 +52,33 @@ namespace WinTail
         }
         #endregion
 
-        public TailActor(IActorRef reporterActor, string filePath)
+        protected override void PreStart()
         {
-            _reporterActor = reporterActor;
-            _filePath = filePath;
-
-            _observer = new FileObserver(Self, filePath);
+            _observer = new FileObserver(Self, _filePath);
             _observer.Start();
 
-            var fileStream = new FileStream(Path.GetFullPath(filePath), FileMode.Open, FileAccess.Read,
+            var fileStream = new FileStream(Path.GetFullPath(_filePath), FileMode.Open, FileAccess.Read,
                 FileShare.ReadWrite);
             _fileStreamReader = new StreamReader(fileStream, Encoding.UTF8);
 
             var text = _fileStreamReader.ReadToEnd();
-            Self.Tell(new InitialRead(filePath, text));
+            Self.Tell(new InitialRead(_filePath, text));
+
+        }
+
+        protected override void PostStop()
+        {
+            _observer.Dispose();
+            _observer = null;
+            _fileStreamReader.Close();
+            _fileStreamReader.Dispose();
+            base.PostStop();
+        }
+
+        public TailActor(IActorRef reporterActor, string filePath)
+        {
+            _reporterActor = reporterActor;
+            _filePath = filePath;
 
         }
 

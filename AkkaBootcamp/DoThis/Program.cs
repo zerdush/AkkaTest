@@ -32,6 +32,8 @@ namespace WinTail
 
             // blocks the main thread from exiting until the actor system is shut down
             MyActorSystem.AwaitTermination();
+
+            Console.ReadLine();
         }
     }
     #endregion

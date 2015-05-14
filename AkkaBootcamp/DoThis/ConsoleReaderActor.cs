@@ -31,15 +31,13 @@ namespace WinTail
         private void GetAndValidateInput()
         {
             var message = Console.ReadLine();
-            
-            if (!string.IsNullOrEmpty(message) && String.Equals(message, ExitCommand, StringComparison.Ordinal))
-                Context.System.Shutdown();
-            Context.ActorSelection("akka://MyActorSystem/user/FileValidator").Tell(message);
-        }
 
-        private bool IsValid(string message)
-        {
-            return message.Length%2 == 0;
+            if (!string.IsNullOrEmpty(message) && String.Equals(message, ExitCommand, StringComparison.Ordinal))
+            {
+                Context.System.Shutdown();
+                return;
+            }
+            Context.ActorSelection("akka://MyActorSystem/user/FileValidator").Tell(message);
         }
     }
 }
