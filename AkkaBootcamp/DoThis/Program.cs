@@ -17,17 +17,14 @@ namespace WinTail
             Props consoleWriteProps = Props.Create<ConsoleWriterActor>();
             IActorRef consoleWriterActor = MyActorSystem.ActorOf(consoleWriteProps, "consoleWriterActor");
 
-            Props validationActorProps = Props.Create(() => new ValidationActor(consoleWriterActor));
-            //IActorRef validationActor = MyActorSystem.ActorOf(validationActorProps, "validationActor");
-
             Props tailCoordinatorProps = Props.Create(() => new TailCoordinatorActor());
-            IActorRef tailCoordinatorActor = MyActorSystem.ActorOf(tailCoordinatorProps, "tailCoordinator");
+             MyActorSystem.ActorOf(tailCoordinatorProps, "tailCoordinator");
 
             Props fileValidatorProps =
-                Props.Create(() => new FileValidatorActor(consoleWriterActor, tailCoordinatorActor));
-            IActorRef fileValidatorActor = MyActorSystem.ActorOf(fileValidatorProps, "FileValidator");
+                Props.Create(() => new FileValidatorActor(consoleWriterActor));
+            MyActorSystem.ActorOf(fileValidatorProps, "FileValidator");
 
-            Props consoleReaderProps = Props.Create<ConsoleReaderActor>(fileValidatorActor);
+            Props consoleReaderProps = Props.Create<ConsoleReaderActor>();
             IActorRef consoleReaderActor = MyActorSystem.ActorOf(consoleReaderProps, "consoleReaderActor");
 
             // tell console reader to begin
@@ -35,22 +32,6 @@ namespace WinTail
 
             // blocks the main thread from exiting until the actor system is shut down
             MyActorSystem.AwaitTermination();
-        }
-
-        private static void PrintInstructions()
-        {
-            Console.WriteLine("Write whatever you want into the console!");
-            Console.Write("Some lines will appear as");
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Write(" red ");
-            Console.ResetColor();
-            Console.Write(" and others will appear as");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(" green! ");
-            Console.ResetColor();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Type 'exit' to quit this application at any time.\n");
         }
     }
     #endregion
