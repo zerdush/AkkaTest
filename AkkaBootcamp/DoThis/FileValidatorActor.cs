@@ -41,8 +41,8 @@ namespace WinTail
 
                     Sender.Tell(new Messages.ContinueProccessing());
                 }
+                Sender.Tell(new Messages.ContinueProccessing());
             }
-            Sender.Tell(new Messages.ContinueProccessing());
         }
 
         private static bool IsFileUri(string path)
