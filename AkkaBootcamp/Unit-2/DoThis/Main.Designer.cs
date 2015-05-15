@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.sysChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.diskButton = new System.Windows.Forms.Button();
             this.memoryButton = new System.Windows.Forms.Button();
@@ -40,27 +40,27 @@
             // 
             // sysChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.sysChart.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            this.sysChart.ChartAreas.Add(chartArea2);
             this.sysChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.sysChart.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            this.sysChart.Legends.Add(legend2);
             this.sysChart.Location = new System.Drawing.Point(0, 0);
             this.sysChart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sysChart.Name = "sysChart";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.sysChart.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.sysChart.Series.Add(series2);
             this.sysChart.Size = new System.Drawing.Size(1026, 686);
             this.sysChart.TabIndex = 0;
             this.sysChart.Text = "sysChart";
             // 
             // diskButton
             // 
-            this.diskButton.Location = new System.Drawing.Point(891, 579);
+            this.diskButton.Location = new System.Drawing.Point(861, 585);
             this.diskButton.Name = "diskButton";
-            this.diskButton.Size = new System.Drawing.Size(110, 46);
+            this.diskButton.Size = new System.Drawing.Size(140, 52);
             this.diskButton.TabIndex = 1;
             this.diskButton.Text = "Disk (Off)";
             this.diskButton.UseVisualStyleBackColor = true;
@@ -68,9 +68,9 @@
             // 
             // memoryButton
             // 
-            this.memoryButton.Location = new System.Drawing.Point(891, 524);
+            this.memoryButton.Location = new System.Drawing.Point(861, 525);
             this.memoryButton.Name = "memoryButton";
-            this.memoryButton.Size = new System.Drawing.Size(110, 46);
+            this.memoryButton.Size = new System.Drawing.Size(140, 52);
             this.memoryButton.TabIndex = 2;
             this.memoryButton.Text = "Memory (Off)";
             this.memoryButton.UseVisualStyleBackColor = true;
@@ -78,9 +78,9 @@
             // 
             // cpuButton
             // 
-            this.cpuButton.Location = new System.Drawing.Point(891, 473);
+            this.cpuButton.Location = new System.Drawing.Point(861, 467);
             this.cpuButton.Name = "cpuButton";
-            this.cpuButton.Size = new System.Drawing.Size(110, 46);
+            this.cpuButton.Size = new System.Drawing.Size(140, 52);
             this.cpuButton.TabIndex = 3;
             this.cpuButton.Text = "CPU (On)";
             this.cpuButton.UseVisualStyleBackColor = true;
@@ -98,6 +98,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Main";
             this.Text = "System Metrics";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sysChart)).EndInit();
             this.ResumeLayout(false);
