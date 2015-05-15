@@ -13,6 +13,9 @@ namespace ChartApp
         private IActorRef _chartActor;
         private readonly AtomicCounter _seriesCounter = new AtomicCounter(1);
 
+        private IActorRef _coordinatorActor;
+        private Dictionary<CounterType, IActorRef> _toggleActors = new Dictionary<CounterType, IActorRef>(); 
+
         public Main()
         {
             InitializeComponent();
@@ -24,19 +27,28 @@ namespace ChartApp
         private void Main_Load(object sender, EventArgs e)
         {
             _chartActor = Program.ChartActors.ActorOf(Props.Create(() => new ChartingActor(sysChart)), "charting");
-            var series = ChartDataHelper.RandomSeries("FakeSeries" + _seriesCounter.GetAndIncrement());
-            _chartActor.Tell(new ChartingActor.InitializeChart(new Dictionary<string, Series>()
-            {
-                {series.Name, series}
-            }));
+            _chartActor.Tell(new ChartingActor.InitializeChart(null));
+
+            _coordinatorActor =
+                Program.ChartActors.ActorOf(Props.Create(() => new PerformanceCounterCoordinatorActor(_chartActor)),
+                    "counters");
         }
 
         #endregion
 
-        private void addSeriesButton_Click(object sender, EventArgs e)
+        private void cpuButton_Click(object sender, EventArgs e)
         {
-            var series = ChartDataHelper.RandomSeries("FakeSeries" + _seriesCounter.GetAndIncrement());
-            _chartActor.Tell(new ChartingActor.AddSeries(series));
+
+        }
+
+        private void memoryButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void diskButton_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
