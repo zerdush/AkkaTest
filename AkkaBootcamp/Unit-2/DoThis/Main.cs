@@ -25,7 +25,7 @@ namespace ChartApp
 
         private void Main_Load(object sender, EventArgs e)
         {
-            _chartActor = Program.ChartActors.ActorOf(Props.Create(() => new ChartingActor(sysChart)), "charting");
+            _chartActor = Program.ChartActors.ActorOf(Props.Create(() => new ChartingActor(sysChart, pauseButton)), "charting");
             _chartActor.Tell(new ChartingActor.InitializeChart(null));
 
             _coordinatorActor =
@@ -71,6 +71,11 @@ namespace ChartApp
                 toggleActor.Tell(new ButtonToggleActor.Toggle());
             }
             Program.ChartActors.Shutdown();
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            _chartActor.Tell(new ChartingActor.TogglePause());
         }
 
     }
