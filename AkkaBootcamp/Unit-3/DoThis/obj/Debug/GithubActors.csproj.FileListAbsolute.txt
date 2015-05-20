@@ -8,7 +8,6 @@ C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\bin\
 C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\bin\Debug\Newtonsoft.Json.xml
 C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\bin\Debug\Octokit.pdb
 C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\bin\Debug\Octokit.xml
-C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\obj\Debug\GithubActors.csprojResolveAssemblyReference.cache
 C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\obj\Debug\GithubActors.GithubAuth.resources
 C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\obj\Debug\GithubActors.LauncherForm.resources
 C:\Users\M.Serdar\Projects\TestProjects\AkkaTest\AkkaBootcamp\Unit-3\DoThis\obj\Debug\GithubActors.Properties.Resources.resources
